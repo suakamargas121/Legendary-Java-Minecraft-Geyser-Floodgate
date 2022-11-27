@@ -13,12 +13,6 @@ if [ ! -d '/minecraft' ]; then
     exit 1
 fi
 
-Terminal=$(readlink /proc/self/fd/0)
-if [ -z "$Terminal" ] || [ "$Terminal" != "/dev/pts/0" ]; then
-    echo "An interactive terminal is required (you don't have to attach).  Please run with docker -it or docker -itd (detached interactive terminal)."
-    sleep 10
-    exit 1
-fi
 
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
@@ -218,9 +212,9 @@ fi
 echo "Starting Minecraft server..."
 
 if [[ -z "$MaxMemory" ]] || [[ "$MaxMemory" -le 0 ]]; then
-    exec java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -jar /minecraft/paperclip.jar
+    exec screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -jar /minecraft/paperclip.jar
 else
-    exec java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -Xmx${MaxMemory}M -jar /minecraft/paperclip.jar
+    exec screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -Xmx${MaxMemory}M -jar /minecraft/paperclip.jar
 fi
 
 # Exit container
