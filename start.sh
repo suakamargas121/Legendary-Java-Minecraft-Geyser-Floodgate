@@ -212,9 +212,9 @@ fi
 echo "Starting Minecraft server..."
 
 if [[ -z "$MaxMemory" ]] || [[ "$MaxMemory" -le 0 ]]; then
-    eval screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -jar /minecraft/paperclip.jar
+    eval "screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -jar /minecraft/paperclip.jar"
 else
-    eval screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -Xmx${MaxMemory}M -jar /minecraft/paperclip.jar
+    eval "screen -L -h 2048 -dmS minecraft java -XX:+UnlockDiagnosticVMOptions -XX:-UseAESCTRIntrinsics -DPaper.IgnoreJavaVersion=true -Xms400M -Xmx${MaxMemory}M -jar /minecraft/paperclip.jar"
 fi
 
 # Exit container
